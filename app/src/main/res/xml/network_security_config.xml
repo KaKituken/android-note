@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">2404:f801:8050:3:bf::10d</domain>
+    </domain-config>
+</network-security-config>

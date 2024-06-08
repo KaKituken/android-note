@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="164dp"
+    android:layout_height="286dp"
+    android:orientation="vertical"
+    android:paddingTop="30dp"
+    android:paddingBottom="30dp"
+    android:paddingStart="30dp"
+    android:paddingEnd="30dp"
+    android:background="@drawable/popupwindow"
+    tools:context=".PopupFragment">
+
+    <TextView
+        android:id="@+id/myNote"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="20sp"
+        android:text="@string/my_notes" />
+
+    <TextView
+        android:id="@+id/calendar"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="20sp"
+        android:text="@string/calendar" />
+
+    <TextView
+        android:id="@+id/myAccount"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/my_account"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/trash"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="20sp"
+        android:text="@string/trash" />
+
+    <TextView
+        android:id="@+id/signOut"
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="20sp"
+        android:text="@string/sign_out" />
+</LinearLayout>
+
+
+
