@@ -1,5 +1,6 @@
 package com.example.coconote;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ public class GenericRecyclerViewAdapter<T> extends RecyclerView.Adapter<GenericR
     private final FragmentManager fragmentManager;
     private int fragmentContainerId;
     private final FragmentCreator<T> fragmentCreator;
+
+    final private String TAG = "Adapter";
 
     public interface FragmentCreator<T> {
         NoteCardFragment createFragment(T data);
@@ -39,9 +42,11 @@ public class GenericRecyclerViewAdapter<T> extends RecyclerView.Adapter<GenericR
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         T data = mData.get(position);
         NoteCardFragment fragment = fragmentCreator.createFragment(data);
+        Log.d(TAG, "onBindViewHolder: " + holder.noteItemView.getId());
         fragmentManager.beginTransaction()
-                .replace(holder.itemView.findViewById(R.id.noteItem).getId(), fragment)
+                .replace(holder.noteItemView.getId(), fragment)
                 .commit();
+
     }
 
     @Override
@@ -50,8 +55,10 @@ public class GenericRecyclerViewAdapter<T> extends RecyclerView.Adapter<GenericR
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        View noteItemView;
         public ViewHolder(View itemView) {
             super(itemView);
+            noteItemView = itemView.findViewById(R.id.noteItem);
         }
     }
 }
