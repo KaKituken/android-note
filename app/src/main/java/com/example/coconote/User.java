@@ -4,7 +4,7 @@ public class User {
 
     private static User instance;
     private String username;
-    private String userId;
+    private int userId;
     private String userEmail;
     private String userNickname;
     private String userSignature;
@@ -26,11 +26,11 @@ public class User {
         this.username = username;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

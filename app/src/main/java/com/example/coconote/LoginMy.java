@@ -20,6 +20,7 @@ import java.util.concurrent.Executors;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -102,7 +103,7 @@ public class LoginMy extends AppCompatActivity {
                         JSONObject responseJson = new JSONObject(responseData);
                         String message = responseJson.getString("message");
                         JSONObject userInfo = responseJson.getJSONObject("user");
-                        String userId = userInfo.getString("id");
+                        Integer userId = userInfo.getInt("id");
                         String username = userInfo.getString("username");
                         String email = userInfo.getString("email");
                         String avatar = userInfo.getString("avatar");

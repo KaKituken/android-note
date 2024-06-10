@@ -7,14 +7,18 @@ public class NoteComponentData {
     private String description;
     private String time;
     private List<String> tags;
+    private int id;
 
-    public NoteComponentData(String title, String description, String time, List<String> tags) {
+    public NoteComponentData(int id, String title, String description,
+                             String time, List<String> tags) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.time = time;
         this.tags = tags;
     }
 
+    public int getId() {return id;}
     public String getTitle() {
         return title;
     }

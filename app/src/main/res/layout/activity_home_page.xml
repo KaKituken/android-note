@@ -115,21 +115,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
-            <Button
-                android:id="@+id/button8"
-                style="@style/CustomCategoryButtonActive"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_small_radius"
-                android:text="All"
-                android:textSize="18sp" />
+<!--            <Button-->
+<!--                android:id="@+id/button8"-->
+<!--                style="@style/CustomCategoryButtonActive"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/button_small_radius"-->
+<!--                android:text="All"-->
+<!--                android:textSize="18sp" />-->
         </LinearLayout>
     </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notesRecycler"
         android:layout_width="379dp"
-        android:layout_height="598dp"
+        android:layout_height="580dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/popupContainerView"
         app:layout_constraintHorizontal_bias="0.0"
