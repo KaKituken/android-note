@@ -11,6 +11,10 @@
         <item name="backgroundTint">@color/theme_light</item>
     </style>
 
+    <style name="CancelTagButton" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/light_gray</item>
+    </style>
+
     <style name="CustomCategoryButtonActive" parent="Widget.Material3.Button">
         <item name="backgroundTint">@color/black</item>
         <item name="android:radius">0dp</item>

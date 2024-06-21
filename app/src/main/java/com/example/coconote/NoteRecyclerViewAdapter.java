@@ -2,6 +2,7 @@ package com.example.coconote;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,13 +12,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.coconote.data.NoteComponentData;
 
+import java.io.IOException;
 import java.util.List;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class NoteRecyclerViewAdapter extends RecyclerView.Adapter<NoteRecyclerViewAdapter.NoteViewHolder>{
+    private final OkHttpClient client = new OkHttpClient();
     private List<NoteComponentData> mData;
     private final Context context;
 
@@ -64,6 +75,60 @@ public class NoteRecyclerViewAdapter extends RecyclerView.Adapter<NoteRecyclerVi
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
         layoutParams.setMargins(0, 0, 0, 56); // 左、上、右、下的边距
         holder.itemView.setLayoutParams(layoutParams);
+
+
+        holder.itemView.findViewById(R.id.enterDetail).setOnClickListener(v -> {
+            if (context instanceof HomePage) {
+                ((HomePage) context).openNoteActivity(data);
+            }
+        });
+
+        holder.deleteBtn.setOnClickListener(v -> showDeleteConfirmationDialog(context, position));
+    }
+
+    private void showDeleteConfirmationDialog(Context context, int position) {
+        new AlertDialog.Builder(context)
+                .setTitle("确认删除")
+                .setMessage("确定要删除此条目吗？")
+                .setPositiveButton("确定", (dialog, which) -> deleteItem(position))
+                .setNegativeButton("取消", null)
+                .show();
+
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void deleteItem(int position) {
+        // 获取要删除的笔记ID
+        int noteId = mData.get(position).getId();
+
+        // 发送删除请求到后端
+        String url = GlobalConfig.getInstance().getBaseUrl() + "/api/users/" + User.getInstance().getUserId() + "/notes/" + noteId;
+        Request request = new Request.Builder()
+                .url(url)
+                .delete()
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Log.e("DeleteNote", "Failed to delete note", e);
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    // 从数据列表中移除条目并通知适配器
+                    mData.remove(position);
+                    ((HomePage) context).runOnUiThread(() -> {
+                        notifyItemRemoved(position);
+                        HomePage.computeTagList();
+                        ((HomePage) context).resetBtn();
+                    });
+                } else {
+                    Log.e("DeleteNote", "Failed to delete note: " + response.code());
+                }
+            }
+        });
     }
 
 
@@ -84,6 +149,7 @@ public class NoteRecyclerViewAdapter extends RecyclerView.Adapter<NoteRecyclerVi
         TextView noteDescriptionView;
         TextView noteTimeView;
         LinearLayout noteTagContainer;
+        CardView deleteBtn;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -91,6 +157,7 @@ public class NoteRecyclerViewAdapter extends RecyclerView.Adapter<NoteRecyclerVi
             noteDescriptionView = itemView.findViewById(R.id.noteDescription);
             noteTimeView = itemView.findViewById(R.id.noteCreateDate);
             noteTagContainer = itemView.findViewById(R.id.tagLinear);
+            deleteBtn = itemView.findViewById(R.id.delete_card);
         }
     }
 }

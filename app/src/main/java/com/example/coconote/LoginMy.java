@@ -3,6 +3,7 @@ package com.example.coconote;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -70,10 +71,6 @@ public class LoginMy extends AppCompatActivity {
     }
 
     private void setLoginRequest(String username, String password){
-        runOnUiThread(() -> {
-            Toast.makeText(LoginMy.this, "Logging in", Toast.LENGTH_LONG).show();
-        });
-
         // construct request body
         String url = GlobalConfig.getInstance().getBaseUrl() + "/api/users/login";
         JSONObject params = new JSONObject();
@@ -103,7 +100,7 @@ public class LoginMy extends AppCompatActivity {
                         JSONObject responseJson = new JSONObject(responseData);
                         String message = responseJson.getString("message");
                         JSONObject userInfo = responseJson.getJSONObject("user");
-                        Integer userId = userInfo.getInt("id");
+                        int userId = userInfo.getInt("id");
                         String username = userInfo.getString("username");
                         String email = userInfo.getString("email");
                         String avatar = userInfo.getString("avatar");
@@ -116,11 +113,13 @@ public class LoginMy extends AppCompatActivity {
                         user.setUserNickname(nickname);
                         user.setUserId(userId);
                         user.setUserSignature(signature);
+                        user.setUserAvatar(avatar);
 
                         runOnUiThread(() -> {
                             // 显示响应消息
                             Toast.makeText(LoginMy.this, message, Toast.LENGTH_LONG).show();
-
+                            Intent intent = new Intent(LoginMy.this, HomePage.class);
+                            startActivity(intent);
                         });
                     } catch (JSONException e) {
                         runOnUiThread(() -> {
@@ -130,6 +129,13 @@ public class LoginMy extends AppCompatActivity {
                         });
                         throw new RuntimeException(e);
                     }
+                }
+                else {
+                    runOnUiThread(() -> {
+                        // 显示响应消息
+                        Toast.makeText(LoginMy.this, "用户名或密码不正确", Toast.LENGTH_LONG).show();
+
+                    });
                 }
             }
 

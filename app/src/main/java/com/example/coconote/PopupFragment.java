@@ -1,5 +1,6 @@
 package com.example.coconote;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,7 +62,24 @@ public class PopupFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_popup, container, false);
+        View view = inflater.inflate(R.layout.fragment_popup, container, false);
+        TextView myNotesView = view.findViewById(R.id.myNote);
+        TextView myView = view.findViewById(R.id.myAccount);
+        TextView signOutView = view.findViewById(R.id.signOut);
+        myNotesView.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), HomePage.class);
+            startActivity(intent);
+        });
+        myView.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), UserPage.class);
+            startActivity(intent);
+        });
+        signOutView.setOnClickListener(v -> {
+            User.getInstance().signOut();
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
+        });
+        return view;
     }
 
 }

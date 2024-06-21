@@ -8,6 +8,7 @@ public class User {
     private String userEmail;
     private String userNickname;
     private String userSignature;
+    private String userAvatar;
 
     private User() {}
 
@@ -25,6 +26,8 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
+    public String getUserAvatar() {return userAvatar;}
+    public void setUserAvatar(String userAvatar) {this.userAvatar = userAvatar;}
 
     public int getUserId() {
         return userId;
@@ -56,5 +59,14 @@ public class User {
 
     public void setUserSignature(String userSignature){
         this.userSignature = userSignature;
+    }
+
+    public void signOut(){
+        this.username = "";
+        this.userId = -1;
+        this.userSignature = "";
+        this.userEmail = "";
+        this.userNickname = "";
+        this.userAvatar = "";
     }
 }

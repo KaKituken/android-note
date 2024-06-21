@@ -1,8 +1,11 @@
 package com.example.coconote;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -11,10 +14,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,12 +39,14 @@ public class NoteCardFragment extends Fragment {
     private static final String ARG_DESCRIPTION = "description";
     private static final String ARG_TIME = "time";
     private static final String ARG_TAGS = "tags";
+    private static final String ARG_ID = "id";
 
     // TODO: Rename and change types of parameters
     private String mTitle;
     private String mDescription;
     private String mTime;
     private List<String> mTags;
+    private int mId;
 
     public NoteCardFragment() {
         // Required empty public constructor
@@ -43,7 +55,7 @@ public class NoteCardFragment extends Fragment {
     final private String TAG = "NoteCardFragment";
 
 
-    public static NoteCardFragment newInstance(String title, String description,
+    public static NoteCardFragment newInstance(int id, String title, String description,
                                                String time, ArrayList<String> tags) {
         NoteCardFragment fragment = new NoteCardFragment();
         Bundle args = new Bundle();
@@ -51,6 +63,7 @@ public class NoteCardFragment extends Fragment {
         args.putString(ARG_DESCRIPTION, description);
         args.putString(ARG_TIME, time);
         args.putStringArrayList(ARG_TAGS, tags);
+        args.putInt(ARG_ID, id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -63,6 +76,7 @@ public class NoteCardFragment extends Fragment {
             mDescription = getArguments().getString(ARG_DESCRIPTION);
             mTime = getArguments().getString(ARG_TIME);
             mTags = getArguments().getStringArrayList(ARG_TAGS);
+            mId = getArguments().getInt(ARG_ID);
             Log.d(TAG, "onCreate: " + mTags.toString());
         }
     }
@@ -96,6 +110,7 @@ public class NoteCardFragment extends Fragment {
             tagText.setLayoutParams(params);
             tagContainer.addView(tagText);
         }
+
         return view;
     }
 }

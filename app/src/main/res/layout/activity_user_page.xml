@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_light"
+    tools:context=".UserPage">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="470dp"
+        android:background="@drawable/user_circle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="80dp"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/coconote_logo"
+        app:layout_constraintEnd_toEndOf="@+id/coconote_logo"
+        app:layout_constraintHorizontal_bias="0.964"
+        app:layout_constraintStart_toStartOf="@+id/avatar_img"
+        app:layout_constraintTop_toTopOf="@+id/avatar_img"
+        app:layout_constraintVertical_bias="0.976">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:onClick="changeAvatar"
+            app:srcCompat="@drawable/modify_avatar" />
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/expand_icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="32dp"
+        android:contentDescription="@string/expendicon"
+        android:onClick="showPopupMenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/expend" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/popupContainerView"
+        android:name="com.example.coconote.PopupFragment"
+        android:layout_width="164dp"
+        android:layout_height="286dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.935"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expand_icon"
+        app:layout_constraintVertical_bias="0.018" />
+
+    <ImageView
+        android:id="@+id/coconote_logo"
+        android:layout_width="315dp"
+        android:layout_height="339dp"
+        android:contentDescription="@string/coconote"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.157"
+        app:srcCompat="@drawable/logo" />
+
+    <ImageView
+        android:id="@+id/avatar_img"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/coconote_logo"
+        app:layout_constraintEnd_toEndOf="@+id/coconote_logo"
+        app:layout_constraintHorizontal_bias="0.573"
+        app:layout_constraintStart_toStartOf="@+id/coconote_logo"
+        app:layout_constraintTop_toTopOf="@+id/coconote_logo"
+        app:layout_constraintVertical_bias="0.583"
+        tools:srcCompat="@tools:sample/avatars" />
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/username_linear"
+        android:gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="@+id/coconote_logo"
+        app:layout_constraintEnd_toEndOf="@+id/coconote_logo"
+        app:layout_constraintStart_toStartOf="@+id/coconote_logo"
+        app:layout_constraintTop_toBottomOf="@+id/avatar_img">
+
+        <TextView
+            android:id="@+id/username_str"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <ImageView
+            android:id="@+id/edit_icon"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:onClick="editUsername"
+            app:srcCompat="@drawable/edit_icon" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/signature"
+        android:layout_width="300dp"
+        android:layout_height="25dp"
+        android:text="@string/signature"
+        android:textStyle="italic"
+        android:textAlignment="center"
+        android:onClick="changeSignature"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/username_linear"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="@+id/username_linear"
+        app:layout_constraintTop_toBottomOf="@+id/username_linear"
+        app:layout_constraintVertical_bias="0.196" />
+
+    <LinearLayout
+        android:layout_width="252dp"
+        android:layout_height="232dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/change_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/dark_gray"
+            android:layout_marginBottom="20dp"
+            android:onClick="changePassword"
+            android:text="修改密码" />
+        <TextView
+            android:id="@+id/cancel_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:onClick="cancelUser"
+            android:textColor="@android:color/holo_red_dark"
+            android:text="注销用户" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
